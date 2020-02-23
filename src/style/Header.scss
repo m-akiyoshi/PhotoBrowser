@@ -1,0 +1,12 @@
+.Header__header {
+  height: 60px;
+  border-bottom: 1px solid $gray-500;
+  background-color: $brand;
+  color: white;
+  //   font-family: "Noe display", sans-serif;
+  text-transform: uppercase;
+}
+
+.Header__logo {
+  margin-bottom: 0;
+}

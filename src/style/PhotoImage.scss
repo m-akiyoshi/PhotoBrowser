@@ -1,0 +1,7 @@
+.PhotoImage__image {
+  width: 285px;
+  padding: 3px;
+  @include media-breakpoint-only(xs) {
+    width: 100%;
+  }
+}
