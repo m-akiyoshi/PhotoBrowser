@@ -1,8 +1,16 @@
 import React from "react";
 import PhotoLoader from "./PhotoLoader";
+import SearchBox from "./SearchBox";
 
 export default class MainContent extends React.Component {
+  constructor() {
+    super();
+    this.state = { keyword: "" };
+  }
+
   render() {
+    const { searchMode, photos, onSearchClick, page, loadPhotos } = this.props;
+    const { keyword } = this.state;
     return (
       <div className="row">
         <div className="col-2"></div>
@@ -15,9 +23,20 @@ export default class MainContent extends React.Component {
               Browse photos by photographers around the world and get
               inspiration.
             </p>
+            {searchMode && (
+              <div className="mt-2 mb-2">
+                <SearchBox onClick={onSearchClick} />
+              </div>
+            )}
           </div>
           <div>
-            <PhotoLoader />
+            <PhotoLoader
+              photos={photos}
+              keyword={keyword}
+              searchMode={searchMode}
+              page={page}
+              loadPhotos={loadPhotos}
+            />
           </div>
         </div>
         <div className="col-2"></div>

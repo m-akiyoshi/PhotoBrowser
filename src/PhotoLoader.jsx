@@ -1,19 +1,17 @@
 import React from "react";
-import { getPhotoImages } from "./api/photoLoader";
-import PhotoImage from "./PhotoImage";
 import { Lightbox } from "react-modal-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import PhotoImage from "./PhotoImage";
+
 export default class PhotoLoader extends React.Component {
   constructor() {
     super();
     this.state = {
-      photos: [],
       isModalOpen: false,
-      selectedPhoto: null,
-      page: 0
+      selectedPhoto: null
     };
   }
 
@@ -26,32 +24,28 @@ export default class PhotoLoader extends React.Component {
     this.setState({ selectedPhoto: photo }, this.toggleModalState());
   };
 
-  componentDidMount() {
-    this.loadPhotos();
-  }
-
-  loadPhotos = async () => {
-    let { page, photos } = this.state;
-    page++;
-    const newPhotos = await getPhotoImages(page);
-    photos = photos.concat(newPhotos);
-    this.setState({ photos: photos, page: page });
-  };
-
   render() {
-    const { photos, isModalOpen, selectedPhoto, page } = this.state;
+    const { searchMode, photos, page, loadPhotos } = this.props;
+    const { isModalOpen, selectedPhoto } = this.state;
+
     return (
       <div>
-        {/* {loading && <FontAwesomeIcon icon={faSpinner} spin={true} size="lg" />} */}
-
+        {searchMode && photos.length === 0 && (
+          <p className="font-weight-bold">Search photos you like :)</p>
+        )}
         <InfiniteScroll
-          dataLength={page} //This is important field to render the next data
-          next={this.loadPhotos}
-          hasMore={photos.length < 10}
+          dataLength={page}
+          next={loadPhotos}
+          className="PhotoLoader__scroll"
+          hasMore={photos.length < 300}
           loader={
-            <span className="mt-2">
-              <FontAwesomeIcon icon={faSpinner} spin={true} size="lg" />
-            </span>
+            photos.length !== 0 && (
+              <div>
+                <span className="mt-2">
+                  <FontAwesomeIcon icon={faSpinner} spin={true} size="lg" />
+                </span>
+              </div>
+            )
           }
           endMessage={
             <div className="d-flex justify-content-center">
@@ -62,9 +56,17 @@ export default class PhotoLoader extends React.Component {
           }
         >
           <div className="d-flex flex-row flex-wrap justify-content-center">
-            {photos.map(photo => (
-              <PhotoImage photo={photo} onClick={this.selectPhoto} />
-            ))}
+            {photos.length !== 0 ? (
+              photos.map(photo => (
+                <PhotoImage
+                  key={photo.id}
+                  photo={photo}
+                  onClick={this.selectPhoto}
+                />
+              ))
+            ) : (
+              <div></div>
+            )}
           </div>
         </InfiniteScroll>
 

@@ -5,8 +5,20 @@
   color: white;
   //   font-family: "Noe display", sans-serif;
   text-transform: uppercase;
+  justify-content: space-between;
 }
 
 .Header__logo {
   margin-bottom: 0;
+}
+
+.Header__spacer {
+  width: 174px;
+  @include media-breakpoint-down(xs) {
+    width: 50px;
+  }
+}
+
+.Header__modeButtonLabel {
+  margin-bottom: 0px;
 }

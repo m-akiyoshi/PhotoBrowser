@@ -1,3 +1,6 @@
 .MainContent__subtext {
   text-align: center;
+  @include media-breakpoint-down(xs) {
+    text-align: left;
+  }
 }
