@@ -34,10 +34,14 @@ Go to http://localhost:3000
 
 ![BrowsePhotos](./public/gif/BrowsingFeature.gif)
 
-## View large-size photo (Click the photo)
+### View large-size photo (Click the photo)
 
 ![View enlarged photos](./public/gif/EnlargePhotoFeature.gif)
 
-## Seach photos (Toggle "Search mode" button and type the word you like ('cat'))
+### Seach photos (Toggle "Search mode" button and type the word you like ('cat'))
 
 ![Search photos](./public/gif/SearchFeature.gif)
+
+## Libraries
+
+React, Bootstrap, webpack, dotenv
