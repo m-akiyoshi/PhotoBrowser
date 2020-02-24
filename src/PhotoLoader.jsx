@@ -37,7 +37,7 @@ export default class PhotoLoader extends React.Component {
           dataLength={page}
           next={loadPhotos}
           className="PhotoLoader__scroll"
-          hasMore={photos.length < 300}
+          hasMore={true}
           loader={
             photos.length !== 0 && (
               <div>

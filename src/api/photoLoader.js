@@ -15,11 +15,25 @@ function getApiUrl(page, searchMode, text) {
     : "flickr.photos.getRecent";
   const pagingCount = 30;
   const format = "json";
+  const tagMode = "all";
   const nojsoncallback = 1;
+  if (text) {
+    text = textParser(text);
+  }
   const url = searchMode
-    ? `${apiUrl}/?method=${method}&api_key=${apiKey}&per_page=${pagingCount}&page=${page}&tags=${text}&extras=tags&format=${format}&nojsoncallback=${nojsoncallback}`
+    ? `${apiUrl}/?method=${method}&api_key=${apiKey}&per_page=${pagingCount}&page=${page}&tags=${text}&extras=tags&tag_mode=${tagMode}&format=${format}&nojsoncallback=${nojsoncallback}`
     : `${apiUrl}/?method=${method}&api_key=${apiKey}&per_page=${pagingCount}&page=${page}&format=${format}&nojsoncallback=${nojsoncallback}`;
   return url;
+}
+
+function textParser(text) {
+  let finalText = "";
+  let parsed = text.split(" ");
+  for (const word of parsed) {
+    finalText += word + ",";
+  }
+  finalText = finalText.substring(0, finalText.length - 1);
+  return finalText;
 }
 
 export async function getPhotoImages(page, searchMode, text) {
